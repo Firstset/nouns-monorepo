@@ -1,11 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 import { PNG } from 'pngjs';
-import ColorThief from 'colorthief';
 
 const MAX_COLORS = 256;
-const INPUT_FOLDER = '../images/v3';
-const OUTPUT_FOLDER = '../images/v3-quantized';
+const INPUT_FOLDER = 'images/v3';
+const OUTPUT_FOLDER = 'images/v3-quantized';
 
 interface RGB {
     r: number;
@@ -56,11 +55,52 @@ function getPngFiles(folder: string): string[] {
 async function getAllColors(files: string[]): Promise<string[]> {
     let allColors: string[] = [];
     for (const file of files) {
-        const colors = await (new ColorThief()).getPalette(file);
+        const colors = await getPalette(file);
         allColors = allColors.concat(colors.map((color: number[]) => rgbToHex(color[0], color[1], color[2])));
     }
     return allColors;
 }
+
+async function getPalette(filePath: string, maxColors: number = 256): Promise<number[][]> {
+    return new Promise((resolve, reject) => {
+        const colorMap = new Map<string, number[]>();
+
+        fs.createReadStream(filePath)
+            .pipe(new PNG())
+            .on('parsed', function() {
+                for (let y = 0; y < this.height; y++) {
+                    for (let x = 0; x < this.width; x++) {
+                        const idx = (this.width * y + x) << 2;
+                        const r = this.data[idx];
+                        const g = this.data[idx + 1];
+                        const b = this.data[idx + 2];
+                        const a = this.data[idx + 3];
+
+                        // Skip fully transparent pixels
+                        if (a === 0) continue;
+
+                        const hex = rgbToHex(r, g, b);
+                        if (!colorMap.has(hex)) {
+                            colorMap.set(hex, [r, g, b]);
+                        }
+                    }
+                }
+
+                let palette = Array.from(colorMap.values());
+
+                // If we have more colors than maxColors, we need to reduce the palette
+                if (palette.length > maxColors) {
+                    // This is a simple reduction method. You might want to implement
+                    // a more sophisticated method like k-means clustering for better results.
+                    palette = palette.slice(0, maxColors);
+                }
+
+                resolve(palette);
+            })
+            .on('error', reject);
+    });
+}
+
 
 function reduceColors(colors: string[]): RGB[] {
     const uniqueColors = [...new Set(colors)];
