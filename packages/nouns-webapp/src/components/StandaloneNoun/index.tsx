@@ -10,8 +10,6 @@ import { setOnDisplayAuctionNounId } from '../../state/slices/onDisplayAuction';
 import nounClasses from '../Noun/Noun.module.css';
 import Image from 'react-bootstrap/Image';
 
-console.log(data)
-
 interface StandaloneNounProps {
   nounId: EthersBN;
 }
@@ -31,7 +29,6 @@ export const getNoun = (nounId: string | EthersBN, seed: INounSeed) => {
   const name = `Boun ${id}`;
   const description = `Boun ${id} is a member of the Bouns DAO`;
   const { parts } = getNounData(seed);
-  console.log(data)
   const image = `data:image/svg+xml;base64,${btoa(buildSVG(parts, data.palette))}`;
 
   return {
