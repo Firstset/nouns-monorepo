@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { PNG } from 'pngjs';
 
-const MAX_COLORS = 256;
+const MAX_COLORS = 255; // 255 + transparent = 256 colors
 const INPUT_FOLDER = 'images/v3';
 const OUTPUT_FOLDER = 'images/v3-quantized';
 
