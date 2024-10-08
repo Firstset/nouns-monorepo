@@ -1,4 +1,4 @@
-import { PNGCollectionEncoder, PngImage } from '@nouns/sdk';
+import { PNGCollectionEncoder } from '../../nouns-sdk/src/image/png-collection-encoder';
 import { promises as fs } from 'fs';
 import path from 'path';
 import { readPngImage } from './utils';
@@ -10,7 +10,7 @@ const encode = async () => {
 
   const partfolders = ['1-bodies', '2-accessories', '3-heads', '4-glasses'];
   for (const folder of partfolders) {
-    const folderpath = path.join(__dirname, '../images/v3', folder);
+    const folderpath = path.join(__dirname, '../images/v3-quantized', folder);
     const files = await fs.readdir(folderpath);
     for (const file of files) {
       console.log(file)
