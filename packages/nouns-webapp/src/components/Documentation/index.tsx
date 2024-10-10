@@ -188,7 +188,7 @@ const Documentation = (props: DocumentationProps = { backgroundColor: '#FFF' }) 
               <p style={{ color: 'var(--brand-warm-light-text)' }}>
                 <Trans>
                   The proposal veto right was initially envisioned as a temporary solution to the
-                  problem of ‘51% attacks’ on the Bouns DAO treasury. While Nounders initially
+                  problem of ‘51% attacks’ on the Nouns DAO treasury. While Nounders initially
                   believed that a healthy distribution of Nouns would be sufficient protection for
                   the DAO, a more complete understanding of the incentives and risks has led to
                   general consensus within the Nounders, the Nouns Foundation, and the wider
@@ -230,7 +230,7 @@ const Documentation = (props: DocumentationProps = { backgroundColor: '#FFF' }) 
                 <li>unequally withdraw the treasury for personal gain</li>
                 <li>bribe voters to facilitate withdraws of the treasury for personal gain</li>
                 <li>
-                  attempt to alter Noun auction cadence for the purpose of maintaining or acquiring
+                  attempt to alter Boun auction cadence for the purpose of maintaining or acquiring
                   a voting majority
                 </li>
                 <li>make upgrades to critical smart contracts without undergoing an audit</li>
@@ -246,13 +246,13 @@ const Documentation = (props: DocumentationProps = { backgroundColor: '#FFF' }) 
           </Accordion.Item>
           <Accordion.Item eventKey="4" className={classes.accordionItem}>
             <Accordion.Header className={classes.accordionHeader}>
-              <span style={{ color: 'var(--brand-warm-light-text)' }}><Trans>Noun Traits</Trans></span>
+              <span style={{ color: 'var(--brand-warm-light-text)' }}><Trans>Boun Traits</Trans></span>
             </Accordion.Header>
             <Accordion.Body>
               <p style={{ color: 'var(--brand-warm-light-text)' }}>
                 <Trans>
                   Bouns are generated randomly based Berachain block hashes. There are no 'if'
-                  statements or other rules governing Noun trait scarcity, which makes all Bouns
+                  statements or other rules governing Boun trait scarcity, which makes all Bouns
                   equally rare. As of this writing, Bouns are made up of:
                 </Trans>
               </p>
@@ -261,10 +261,10 @@ const Documentation = (props: DocumentationProps = { backgroundColor: '#FFF' }) 
                   <Trans>bodies (30)</Trans>
                 </li>
                 <li>
-                  <Trans>accessories (140) </Trans>
+                  <Trans>accessories (142) </Trans>
                 </li>
                 <li>
-                  <Trans>heads (50) </Trans>
+                  <Trans>heads (53) </Trans>
                 </li>
                 <li>
                   <Trans>glasses (30)</Trans>
@@ -280,7 +280,7 @@ const Documentation = (props: DocumentationProps = { backgroundColor: '#FFF' }) 
               <p style={{ color: 'var(--brand-warm-light-text)' }}>
                 <Trans>
                   Bouns are stored directly on Berachain and do not utilize pointers to other
-                  networks such as IPFS. This is possible because Noun parts are compressed and
+                  networks such as IPFS. This is possible because Boun parts are compressed and
                   stored on-chain using a custom run-length encoding (RLE), which is a form of
                   lossless compression.
                 </Trans>
