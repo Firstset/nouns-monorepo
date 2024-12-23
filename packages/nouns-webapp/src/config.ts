@@ -58,12 +58,12 @@ export const WALLET_CONNECT_V2_PROJECT_ID =
 
 export const createNetworkHttpUrl = (network: string): string => {
   const custom = process.env[`REACT_APP_${network.toUpperCase()}_JSONRPC`];
-  return custom || `https://rpc.bouns.wtf`;
+  return custom || `https://berachain-bartio.g.alchemy.com/v2/EQdaYUyE45byNcl3n9iUCEnJsvG8SAKR`;
 };
 
 export const createNetworkWsUrl = (network: string): string => {
   const custom = process.env[`REACT_APP_${network.toUpperCase()}_WSRPC`];
-  return custom || `wss://ws.bouns.wtf`;
+  return custom || `wss://berachain-bartio.g.alchemy.com/v2/EQdaYUyE45byNcl3n9iUCEnJsvG8SAKR`;
 };
 
 const app: Record<SupportedChains, AppConfig> = {
@@ -90,7 +90,7 @@ const app: Record<SupportedChains, AppConfig> = {
   },
   80084: {
     jsonRpcUri: 'https://rpc.bouns.wtf',
-    wsRpcUri: 'wss://ws.bouns.wtf',
+    wsRpcUri: 'wss://berachain-bartio.g.alchemy.com/v2/EQdaYUyE45byNcl3n9iUCEnJsvG8SAKR',
     subgraphApiUri:
       'https://api.goldsky.com/api/public/project_cm1p24aohtsfs01x64i0p4umb/subgraphs/bouns/0.0.7/gn',
     enableHistory: process.env.REACT_APP_ENABLE_HISTORY === 'true',
