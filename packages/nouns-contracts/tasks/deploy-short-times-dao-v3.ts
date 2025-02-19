@@ -398,6 +398,8 @@ task('deploy-short-times-dao-v3', 'Deploy all Nouns contracts with short gov tim
         gasOptions,
       );
 
+      await new Promise(resolve => setTimeout(resolve, 5000)); // Sleep for 5 seconds
+
       if (contract.waitForConfirmation) {
         await deployedContract.deployed();
       }
