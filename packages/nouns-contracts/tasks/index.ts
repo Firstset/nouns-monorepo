@@ -16,3 +16,4 @@ export * from './mint-noun';
 export * from './deploy-nouns-token';
 export * from './run-remote-dao-v3';
 export * from './deploy-remote-dao-v3';
+export * from './deploy-and-configure-bouns-dao-v3';
