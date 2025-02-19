@@ -2,8 +2,8 @@ import { task, types } from 'hardhat/config';
 import { printContractsTable } from './utils';
 
 task(
-  'deploy-and-configure-short-times-dao-v3',
-  'Deploy and configure all contracts with short gov times for testing',
+  'deploy-and-configure-bouns-dao-v3',
+  'Deploy and configure all contracts for Bouns DAO',
 )
   .addFlag('startAuction', 'Start the first auction upon deployment completion')
   .addFlag('autoDeploy', 'Deploy all contracts without user interaction')
