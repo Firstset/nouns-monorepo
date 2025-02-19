@@ -109,16 +109,16 @@ library NounsDAOAdmin {
     uint256 public constant MAX_PROPOSAL_THRESHOLD_BPS = 1_000; // 1,000 basis points or 10%
 
     /// @notice The minimum setable voting period in blocks
-    uint256 public constant MIN_VOTING_PERIOD_BLOCKS = 1 days / 12;
+    uint256 public constant MIN_VOTING_PERIOD_BLOCKS = 1 days / 2;
 
     /// @notice The max setable voting period in blocks
-    uint256 public constant MAX_VOTING_PERIOD_BLOCKS = 2 weeks / 12;
+    uint256 public constant MAX_VOTING_PERIOD_BLOCKS = 2 weeks / 2;
 
     /// @notice The min setable voting delay in blocks
     uint256 public constant MIN_VOTING_DELAY_BLOCKS = 1;
 
     /// @notice The max setable voting delay in blocks
-    uint256 public constant MAX_VOTING_DELAY_BLOCKS = 2 weeks / 12;
+    uint256 public constant MAX_VOTING_DELAY_BLOCKS = 2 weeks / 2;
 
     /// @notice The lower bound of minimum quorum votes basis points
     uint256 public constant MIN_QUORUM_VOTES_BPS_LOWER_BOUND = 200; // 200 basis points or 2%
@@ -136,10 +136,10 @@ library NounsDAOAdmin {
     uint256 public constant MIN_FORK_PERIOD = 2 days;
 
     /// @notice Upper bound for objection period duration in blocks.
-    uint256 public constant MAX_OBJECTION_PERIOD_BLOCKS = 7 days / 12;
+    uint256 public constant MAX_OBJECTION_PERIOD_BLOCKS = 7 days / 2;
 
     /// @notice Upper bound for proposal updatable period duration in blocks.
-    uint256 public constant MAX_UPDATABLE_PERIOD_BLOCKS = 7 days / 12;
+    uint256 public constant MAX_UPDATABLE_PERIOD_BLOCKS = 7 days / 2;
 
     modifier onlyAdmin() {
         if (msg.sender != ds().admin) {
