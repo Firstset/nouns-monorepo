@@ -4,7 +4,7 @@ import { default as NounsDaoDataABI } from '../abi/contracts/governance/data/Nou
 import { ChainId, ContractDeployment, ContractNamesDAOV3, DeployedContract } from './types';
 import { Interface, parseUnits } from 'ethers/lib/utils';
 import { task, types } from 'hardhat/config';
-import { constants } from 'ethers';
+import { constants, Contract } from 'ethers';
 import promptjs from 'prompt';
 
 promptjs.colors = true;
@@ -32,48 +32,49 @@ task('deploy-short-times-dao-v3', 'Deploy all Nouns contracts with short gov tim
   .addFlag('autoDeploy', 'Deploy all contracts without user interaction')
   .addOptionalParam('weth', 'The WETH contract address', undefined, types.string)
   .addOptionalParam('noundersdao', 'The nounders DAO contract address', undefined, types.string)
+  /*
   .addOptionalParam(
     'auctionTimeBuffer',
     'The auction time buffer (seconds)',
-    30 /* 30 seconds */,
+    30, // 30 seconds
     types.int,
   )
   .addOptionalParam(
     'auctionReservePrice',
     'The auction reserve price (wei)',
-    1 /* 1 wei */,
+    1, // 1 wei
     types.int,
   )
   .addOptionalParam(
     'auctionMinIncrementBidPercentage',
     'The auction min increment bid percentage (out of 100)',
-    2 /* 2% */,
+    2, // 2%
     types.int,
   )
   .addOptionalParam(
     'auctionDuration',
     'The auction duration (seconds)',
-    60 * 2 /* 2 minutes */,
+    60 * 2, // 2 minutes
     types.int,
   )
   .addOptionalParam(
     'auctionDurationIncreasePercentage',
     'The auction duration increase percentage (out of 100)',
-    10 /* 10% */,
+    10, // 10%
     types.int,
   )
-  .addOptionalParam('timelockDelay', 'The timelock delay (seconds)', 60 /* 1 min */, types.int)
+  .addOptionalParam('timelockDelay', 'The timelock delay (seconds)', 60, types.int)
   .addOptionalParam(
     'votingPeriod',
     'The voting period (blocks)',
-    80 /* 20 min (15s blocks) */,
+    80, // 20 min (15s blocks)
     types.int,
   )
   .addOptionalParam('votingDelay', 'The voting delay (blocks)', 1, types.int)
   .addOptionalParam(
     'proposalThresholdBps',
     'The proposal threshold (basis points)',
-    100 /* 1% */,
+    100, // 1%
     types.int,
   )
   .addOptionalParam(
@@ -101,6 +102,7 @@ task('deploy-short-times-dao-v3', 'Deploy all Nouns contracts with short gov tim
     0,
     types.int,
   )
+  */
   .setAction(async (args, { ethers }) => {
     const network = await ethers.provider.getNetwork();
     const [deployer] = await ethers.getSigners();
@@ -143,19 +145,29 @@ task('deploy-short-times-dao-v3', 'Deploy all Nouns contracts with short gov tim
       DeployedContract
     >;
     const contracts: Record<ContractNamesDAOV3, ContractDeployment> = {
-      NFTDescriptorV2: {},
-      SVGRenderer: {},
+      NFTDescriptorV2: {
+        waitForConfirmation: true,
+      },
+      SVGRenderer: {
+        waitForConfirmation: true,
+      },
       NounsDescriptorV2: {
         args: [expectedNounsArtAddress, () => deployment.SVGRenderer.address],
         libraries: () => ({
           NFTDescriptorV2: deployment.NFTDescriptorV2.address,
         }),
+        waitForConfirmation: true,
       },
-      Inflator: {},
+      Inflator: {
+        waitForConfirmation: true,
+      },
       NounsArt: {
         args: [() => deployment.NounsDescriptorV2.address, () => deployment.Inflator.address],
+        waitForConfirmation: true,
       },
-      NounsSeeder: {},
+      NounsSeeder: {
+        waitForConfirmation: true,
+      },
       NounsToken: {
         args: [
           args.noundersdao,
@@ -164,6 +176,7 @@ task('deploy-short-times-dao-v3', 'Deploy all Nouns contracts with short gov tim
           () => deployment.NounsSeeder.address,
           proxyRegistryAddress,
         ],
+        waitForConfirmation: true,
         postDeployAction: async (deployedContract) => {
           console.log('NounsToken deployed. Important addresses:');
           console.log(`NounsToken address: ${deployedContract.address}`);
@@ -176,7 +189,9 @@ task('deploy-short-times-dao-v3', 'Deploy all Nouns contracts with short gov tim
       NounsAuctionHouse: {
         waitForConfirmation: true,
       },
-      NounsAuctionHouseProxyAdmin: {},
+      NounsAuctionHouseProxyAdmin: {
+        waitForConfirmation: true,
+      },
       NounsAuctionHouseProxy: {
         args: [
           () => deployment.NounsAuctionHouse.address,
@@ -203,11 +218,21 @@ task('deploy-short-times-dao-v3', 'Deploy all Nouns contracts with short gov tim
           }
         },
       },
-      NounsDAODynamicQuorum: {},
-      NounsDAOAdmin: {},
-      NounsDAOProposals: {},
-      NounsDAOVotes: {},
-      NounsDAOFork: {},
+      NounsDAODynamicQuorum: {
+        waitForConfirmation: true,
+      },
+      NounsDAOAdmin: {
+        waitForConfirmation: true,
+      },
+      NounsDAOProposals: {
+        waitForConfirmation: true,
+      },
+      NounsDAOVotes: {
+        waitForConfirmation: true,
+      },
+      NounsDAOFork: {
+        waitForConfirmation: true,
+      },
       NounsDAOLogicV4: {
         libraries: () => ({
           NounsDAOAdmin: deployment.NounsDAOAdmin.address,
@@ -221,13 +246,20 @@ task('deploy-short-times-dao-v3', 'Deploy all Nouns contracts with short gov tim
       NounsDAOForkEscrow: {
         args: [expectedNounsDAOProxyAddress, () => deployment.NounsToken.address],
       },
-      NounsTokenFork: {},
-      NounsAuctionHouseFork: {},
-      NounsDAOLogicV1Fork: {},
+      NounsTokenFork: {
+        waitForConfirmation: true,
+      },
+      NounsAuctionHouseFork: {
+        waitForConfirmation: true,
+      },
+      NounsDAOLogicV1Fork: {
+        waitForConfirmation: true,
+      },
       NounsDAOExecutorV2: {
         waitForConfirmation: true,
       },
       NounsDAOExecutorProxy: {
+        waitForConfirmation: true,
         args: [
           () => deployment.NounsDAOExecutorV2.address,
           () =>
@@ -238,6 +270,7 @@ task('deploy-short-times-dao-v3', 'Deploy all Nouns contracts with short gov tim
         ],
       },
       ForkDAODeployer: {
+        waitForConfirmation: true,
         args: [
           () => deployment.NounsTokenFork.address,
           () => deployment.NounsAuctionHouseFork.address,
@@ -299,6 +332,7 @@ task('deploy-short-times-dao-v3', 'Deploy all Nouns contracts with short gov tim
               expectedNounsDAOProxyAddress,
             ]),
         ],
+        waitForConfirmation: true,
       },
     };
 
@@ -391,35 +425,63 @@ task('deploy-short-times-dao-v3', 'Deploy all Nouns contracts with short gov tim
           return;
         }
       }
-      console.log(`Deploying ${name}...`);
 
-      const deployedContract = await factory.deploy(
-        ...(contract.args?.map(a => (typeof a === 'function' ? a() : a)) ?? []),
-        gasOptions,
-      );
+      /////
 
-      await new Promise(resolve => setTimeout(resolve, 5000)); // Sleep for 5 seconds
+      const DEPLOY_TIMEOUT = 60000; // 60 seconds
+      const deploymentTimer = setTimeout(() => {
+        console.log('\nDeployment timeout reached. Current progress:');
+        const progress = Object.entries(deployment).reduce((acc, [name, contract]) => {
+          acc[name] = contract.address;
+          return acc;
+        }, {} as Record<string, string>);
+        console.log(JSON.stringify(progress, null, 2));
+        process.exit(1);
+      }, DEPLOY_TIMEOUT);
 
-      if (contract.waitForConfirmation) {
-        await deployedContract.deployed();
+      try {
+
+      /////
+
+        console.log(`Deploying ${name}...`);
+
+        const deployedContract = await factory.deploy(
+          ...(contract.args?.map(a => (typeof a === 'function' ? a() : a)) ?? []),
+          gasOptions,
+        );
+
+        // Log the transaction hash
+        console.log(`${name} deployment transaction hash: ${deployedContract.deployTransaction.hash}`);
+
+        if (contract.waitForConfirmation) {
+          await deployedContract.deployed();
+        }
+
+        deployment[name as ContractNamesDAOV3] = {
+          name: nameForFactory,
+          instance: deployedContract,
+          address: deployedContract.address,
+          constructorArguments: contract.args?.map(a => (typeof a === 'function' ? a() : a)) ?? [],
+          libraries: contract?.libraries?.() ?? {},
+        };
+
+        // Execute post-deployment action if it exists
+        if (contract.postDeployAction) {
+          await contract.postDeployAction(deployedContract);
+        }
+
+        contract.validateDeployment?.();
+
+        console.log(`${name} contract deployed to ${deployedContract.address}`);
+
+      /////
+
+      } finally {
+        clearTimeout(deploymentTimer);
       }
 
-      deployment[name as ContractNamesDAOV3] = {
-        name: nameForFactory,
-        instance: deployedContract,
-        address: deployedContract.address,
-        constructorArguments: contract.args?.map(a => (typeof a === 'function' ? a() : a)) ?? [],
-        libraries: contract?.libraries?.() ?? {},
-      };
+      /////
 
-      // Execute post-deployment action if it exists
-      if (contract.postDeployAction) {
-        await contract.postDeployAction(deployedContract);
-      }
-
-      contract.validateDeployment?.();
-
-      console.log(`${name} contract deployed to ${deployedContract.address}`);
     }
 
     return deployment;

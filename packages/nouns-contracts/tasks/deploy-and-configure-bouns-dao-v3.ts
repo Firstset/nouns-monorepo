@@ -57,13 +57,13 @@ task(
   .addOptionalParam(
     'minQuorumVotesBPS',
     'Min basis points input for dynamic quorum',
-    88 /* 0.88% */,
+    200 /* 2% */,
     types.int,
   ) // Default: 10%
   .addOptionalParam(
     'maxQuorumVotesBPS',
     'Max basis points input for dynamic quorum',
-    132 /* 1.32% */,
+    2000 /* 20% */,
     types.int,
   ) // Default: 40%
   .addOptionalParam('quorumCoefficient', 'Dynamic quorum coefficient (float)', 1, types.float)
@@ -79,6 +79,15 @@ task(
     0,
     types.int,
   )
+  //////
+  // Add a flag for deployed contracts JSON file
+  .addOptionalParam(
+    'deployedContracts',
+    'JSON object of pre-deployed contract addresses to reuse (e.g., {"NFTDescriptorV2": "0x..."}, etc)',
+    '{}',
+    types.json
+  )
+  //////
   .setAction(async (args, { run }) => {
     // Deploy the Nouns DAO contracts and return deployment information
     const contracts = await run('deploy-short-times-dao-v3', args);
