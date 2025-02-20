@@ -55,6 +55,7 @@ const config: HardhatUserConfig = {
     berachain: {
       chainId: 80094,
       url: `https://lb.drpc.org/ogrpc?network=berachain&dkey=${process.env.DRPC_KEY}`,
+      //url: "https://bartio.rpc.berachain.com",
       accounts: process.env.MNEMONIC
         ? { mnemonic: process.env.MNEMONIC }
         : [process.env.WALLET_PRIVATE_KEY!].filter(Boolean),
