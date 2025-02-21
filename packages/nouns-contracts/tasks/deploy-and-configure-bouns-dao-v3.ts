@@ -123,9 +123,10 @@ task(
         gasLimit: 1_000_000,
       });
       console.log('Started the first auction.');
+
+      await auctionHouse.transferOwnership(executorAddress);
+      console.log('Transferred ownership of the auction house to the executor.');
     }
-    await auctionHouse.transferOwnership(executorAddress);
-    console.log('Transferred ownership of the auction house to the executor.');
 
     // Optionally write the deployed addresses to the SDK and subgraph configs.
     if (args.updateConfigs) {
