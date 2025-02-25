@@ -49,7 +49,7 @@ export const cacheKey = (bucket: CacheBucket, ...parts: (string | number)[]) => 
   return [bucket.name, bucket.version, ...parts].join('-').toLowerCase();
 };
 
-export const CHAIN_ID: SupportedChains = parseInt(process.env.REACT_APP_CHAIN_ID ?? '4');
+export const CHAIN_ID: SupportedChains = parseInt("80094");
 
 export const BERAERSCAN_API_KEY = process.env.REACT_APP_ETHERSCAN_API_KEY ?? '';
 
@@ -96,8 +96,8 @@ const app: Record<SupportedChains, AppConfig> = {
   //   enableHistory: process.env.REACT_APP_ENABLE_HISTORY === 'true',
   // },
   80094: {
-    jsonRpcUri: 'https://lb.drpc.org/ogrpc?network=berachain&dkey=' + process.env.REACT_APP_DRPC_KEY,
-    wsRpcUri: 'wss://lb.drpc.org/ogws?network=berachain&dkey=' + process.env.REACT_APP_DRPC_KEY,
+    jsonRpcUri: 'https://lb.drpc.org/ogrpc?network=berachain&dkey=AjirufN3pUwtkrUzZP-gdxBoQ0DL7qYR771J0mSYF3e0',
+    wsRpcUri: 'wss://lb.drpc.org/ogws?network=berachain&dkey=AjirufN3pUwtkrUzZP-gdxBoQ0DL7qYR771J0mSYF3e0',
     subgraphApiUri:
       'https://api.goldsky.com/api/public/project_cm1p24aohtsfs01x64i0p4umb/subgraphs/bouns/0.1.1/gn',
     enableHistory: process.env.REACT_APP_ENABLE_HISTORY === 'true',
