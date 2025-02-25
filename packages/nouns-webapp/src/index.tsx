@@ -88,28 +88,29 @@ const supportedChainURLs = {
   [ChainId.Hardhat]: 'http://localhost:8545',
   [ChainId.Goerli]: createNetworkHttpUrl('goerli'),
   [ChainId_Sepolia]: createNetworkHttpUrl('sepolia'),
-  80084: createNetworkHttpUrl('sepolia'),
+  // 80084: createNetworkHttpUrl('sepolia'),
+  80094: createNetworkHttpUrl('80094'),
 };
 
 export const Berachain: Chain = {
-  chainId: 80084,
+  chainId: 80094,
   chainName: 'Berachain',
   isTestChain: true,
   isLocalChain: false,
   multicallAddress: '0xcA11bde05977b3631167028862bE2a173976CA11',
-  getExplorerAddressLink: (address: string) => `https://sepolia.etherscan.io/address/${address}`,
+  getExplorerAddressLink: (address: string) => `https://berascan.com/address/${address}`,
   getExplorerTransactionLink: (transactionHash: string) =>
-    `https://sepolia.etherscan.io/tx/${transactionHash}`,
+    `https://berascan.com/tx/${transactionHash}`,
 };
 
 // prettier-ignore
 const useDappConfig = {
-  readOnlyChainId: 80084,
+  readOnlyChainId: 80094,
   readOnlyUrls: {
-    80084: supportedChainURLs[80084],
+    80094: supportedChainURLs[80094],
   },
   multicallAddresses: {
-    80084: multicallOnLocalhost,
+    80094: multicallOnLocalhost,
   },
   networks: [Berachain],
 };

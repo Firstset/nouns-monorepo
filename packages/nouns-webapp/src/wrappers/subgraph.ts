@@ -46,7 +46,6 @@ export const seedsQuery = (first = 1_000) => gql`
 {
   seeds(first: ${first}) {
     id
-    background
     body
     accessory
     head

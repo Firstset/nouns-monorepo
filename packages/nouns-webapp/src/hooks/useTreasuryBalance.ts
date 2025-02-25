@@ -1,9 +1,7 @@
 import { useEtherBalance } from '@usedapp/core';
-import useLidoBalance from './useLidoBalance';
-import useTokenBuyerBalance from './useTokenBuyerBalance';
 import { useCoingeckoPrice } from '@usedapp/coingecko';
 import config from '../config';
-import { BigNumber, ethers } from 'ethers';
+import { ethers } from 'ethers';
 
 /**
  * Computes treasury balance (ETH + Lido)

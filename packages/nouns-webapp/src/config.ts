@@ -27,7 +27,7 @@ interface AppConfig {
 }
 
 export const ChainId_Sepolia = 11155111;
-type SupportedChains = ChainId.Mainnet | ChainId.Hardhat | ChainId.Goerli | typeof ChainId_Sepolia | 80084;
+type SupportedChains = ChainId.Mainnet | ChainId.Hardhat | ChainId.Goerli | typeof ChainId_Sepolia | 80094;
 
 interface CacheBucket {
   name: string;
@@ -88,11 +88,18 @@ const app: Record<SupportedChains, AppConfig> = {
       'https://api.goldsky.com/api/public/project_cldf2o9pqagp43svvbk5u3kmo/subgraphs/nouns/prod/gn',
     enableHistory: process.env.REACT_APP_ENABLE_HISTORY === 'true',
   },
-  80084: {
-    jsonRpcUri: 'https://rpc.bouns.wtf',
-    wsRpcUri: 'wss://berachain-bartio.g.alchemy.com/v2/EQdaYUyE45byNcl3n9iUCEnJsvG8SAKR',
+  // 80084: {
+  //   jsonRpcUri: 'https://rpc.bouns.wtf',
+  //   wsRpcUri: 'wss://berachain-bartio.g.alchemy.com/v2/EQdaYUyE45byNcl3n9iUCEnJsvG8SAKR',
+  //   subgraphApiUri:
+  //     'https://api.goldsky.com/api/public/project_cm1p24aohtsfs01x64i0p4umb/subgraphs/bouns/0.0.8/gn',
+  //   enableHistory: process.env.REACT_APP_ENABLE_HISTORY === 'true',
+  // },
+  80094: {
+    jsonRpcUri: 'https://lb.drpc.org/ogrpc?network=berachain&dkey=' + process.env.REACT_APP_DRPC_KEY,
+    wsRpcUri: 'wss://lb.drpc.org/ogws?network=berachain&dkey=' + process.env.REACT_APP_DRPC_KEY,
     subgraphApiUri:
-      'https://api.goldsky.com/api/public/project_cm1p24aohtsfs01x64i0p4umb/subgraphs/bouns/0.0.8/gn',
+      'https://api.goldsky.com/api/public/project_cm1p24aohtsfs01x64i0p4umb/subgraphs/bouns/0.1.1/gn',
     enableHistory: process.env.REACT_APP_ENABLE_HISTORY === 'true',
   },
   [ChainId.Hardhat]: {
@@ -144,16 +151,16 @@ const externalAddresses: Record<SupportedChains, ExternalContractAddresses> = {
     steth: undefined,
     nounsStreamFactory: undefined,
   },
-  80084: {
+  80094: {
     lidoToken: undefined,
     usdcToken: undefined,
-    payerContract: '0xaFeb316B4ED09DD348E15837eA71C067d61FEBfe',
+    payerContract: '0x1a90FBb6Eb1f8d43d94F595C99Df7a5081e47909',
     tokenBuyer: undefined,
     chainlinkEthUsdc: undefined,
     weth: undefined,
     steth: undefined,
-    wbera: '0x7507c1dc16935B82698e4C63f2746A2fCf994dF8',
-    honey: '0x0E4aaF1351de4c0264C5c7056Ef3777b41BD8e03',
+    wbera: '0x6969696969696969696969696969696969696969',
+    honey: '0xFCBD14DC51f0A4d49d5E53C2E0950e0bC26d0Dce',
     nounsStreamFactory: undefined,
   },
 };
