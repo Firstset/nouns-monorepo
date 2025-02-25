@@ -92,7 +92,7 @@ const app: Record<SupportedChains, AppConfig> = {
     jsonRpcUri: 'https://rpc.bouns.wtf',
     wsRpcUri: 'wss://berachain-bartio.g.alchemy.com/v2/EQdaYUyE45byNcl3n9iUCEnJsvG8SAKR',
     subgraphApiUri:
-      'https://api.goldsky.com/api/public/project_cm1p24aohtsfs01x64i0p4umb/subgraphs/bouns/0.0.7/gn',
+      'https://api.goldsky.com/api/public/project_cm1p24aohtsfs01x64i0p4umb/subgraphs/bouns/0.0.8/gn',
     enableHistory: process.env.REACT_APP_ENABLE_HISTORY === 'true',
   },
   [ChainId.Hardhat]: {
@@ -176,6 +176,8 @@ const config = {
     fork: false,
   },
 };
+
+console.log(config);
 
 export default config;
 
