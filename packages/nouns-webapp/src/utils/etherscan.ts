@@ -1,5 +1,5 @@
 import { ChainId } from '@usedapp/core';
-import { CHAIN_ID, ChainId_Sepolia, BERAERSCAN_API_KEY } from '../config';
+import { CHAIN_ID, ChainId_Sepolia, BERASCAN_API_KEY } from '../config';
 
 const getBaseURL = (network: ChainId) => {
   switch (network) {
@@ -65,7 +65,7 @@ export const buildEtherscanApiQuery = (
     module,
     action,
     address,
-    apikey: BERAERSCAN_API_KEY,
+    apikey: BERASCAN_API_KEY,
   });
   const path = `api?${params.toString()}`;
   return new URL(path, API_BASE_URL).toString();

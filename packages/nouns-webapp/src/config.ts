@@ -51,7 +51,7 @@ export const cacheKey = (bucket: CacheBucket, ...parts: (string | number)[]) => 
 
 export const CHAIN_ID: SupportedChains = parseInt("80094");
 
-export const BERAERSCAN_API_KEY = process.env.REACT_APP_ETHERSCAN_API_KEY ?? '';
+export const BERASCAN_API_KEY = process.env.REACT_APP_ETHERSCAN_API_KEY ?? '';
 
 export const WALLET_CONNECT_V2_PROJECT_ID =
   process.env.REACT_APP_WALLET_CONNECT_V2_PROJECT_ID ?? '';
