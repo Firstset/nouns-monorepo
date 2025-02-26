@@ -45,9 +45,9 @@ const Winner: React.FC<WinnerProps> = props => {
       className={classes.link}
     >
       <Tooltip
-        tip="View on Beratrail"
+        tip="View on Berascan"
         tooltipContent={(tip: string) => {
-          return <Trans>View on Beratrail</Trans>;
+          return <Trans>View on Berascan</Trans>;
         }}
         id="holder-etherscan-tooltip"
       >

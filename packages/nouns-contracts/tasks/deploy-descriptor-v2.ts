@@ -105,10 +105,10 @@ task('deploy-descriptor-v2', 'Deploy NounsDescriptorV2 & populate it with art')
     console.log('Transfer complete.');
 
     if (network.name !== 'localhost') {
-      console.log('Waiting 1 minute before verifying contracts on Beratrail');
+      console.log('Waiting 1 minute before verifying contracts on Berascan');
       await delay(60);
 
-      console.log('Verifying contracts on Beratrail...');
+      console.log('Verifying contracts on Berascan...');
       await run('verify-etherscan', {
         contracts,
       });

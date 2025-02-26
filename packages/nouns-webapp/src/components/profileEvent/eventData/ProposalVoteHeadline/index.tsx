@@ -34,7 +34,7 @@ const ProposalVoteHeadline: React.FC<ProposalVoteHeadlineProps> = props => {
       />
       <span
         className={classes.voterLink}
-        data-tip={`View on Beratrail`}
+        data-tip={`View on Berascan`}
         data-for="view-on-etherscan-tooltip"
         onClick={e => {
           // This is so that we don't navigate to the prop page on click the address
