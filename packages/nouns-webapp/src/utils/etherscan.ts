@@ -8,15 +8,25 @@ const getBaseURL = (network: ChainId) => {
     case ChainId.Sepolia:
       return 'https://sepolia.etherscan.io/';
     default:
-      return 'https://bartio.beratrail.io/address/';
+      return 'https://berascan.com/';
   }
 };
 
 const BASE_URL = getBaseURL(CHAIN_ID);
 
 export const buildEtherscanTxLink = (txHash: string): string => {
-  const path = `/tx/${txHash}`;
-  return new URL(path, BASE_URL).toString();
+  // Check if this is a synthetic transaction
+  if (!txHash || txHash.startsWith('synthetic-bid-')) {
+    return '#'; // Return a harmless hash link instead of empty string
+  }
+  
+  try {
+    const path = `/tx/${txHash}`;
+    return new URL(path, BASE_URL).toString();
+  } catch (error) {
+    console.error('Error building Etherscan link:', error);
+    return '#';
+  }
 };
 
 export const buildEtherscanAddressLink = (address: string): string => {
@@ -40,7 +50,7 @@ const getApiBaseURL = (network: number) => {
     case ChainId_Sepolia:
       return 'https://api-sepolia.etherscan.io/';
     default:
-      return 'https://bartio.beratrail.io/';
+      return 'https://berascan.com/';
   }
 };
 

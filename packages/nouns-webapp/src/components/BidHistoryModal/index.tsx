@@ -8,6 +8,7 @@ import { useAuctionBids } from '../../wrappers/onDisplayAuction';
 import { Bid } from '../../utils/types';
 import BidHistoryModalRow from '../BidHistoryModalRow';
 import { Trans } from '@lingui/macro';
+import { buildEtherscanTxLink } from '../../utils/etherscan';
 
 export const Backdrop: React.FC<{ onDismiss: () => void }> = props => {
   return <div className={classes.backdrop} onClick={props.onDismiss} />;
@@ -47,7 +48,9 @@ const BidHistoryModalOverlay: React.FC<{
             {bids && bids.length > 0 ? (
               <ul>
                 {bids?.map((bid: Bid, i: number) => {
-                  return <BidHistoryModalRow index={i} bid={bid} />;
+                  return (
+                    <BidHistoryModalRow index={i} bid={bid} />
+                  );
                 })}
               </ul>
             ) : (

@@ -67,11 +67,13 @@ const BidHistoryModalRow: React.FC<BidHistoryModalRowProps> = props => {
             {bidAmount}
           </div>
           <div className={auctionActivityClasses.linkSymbol}>
-            <a href={txLink} target="_blank" rel="noreferrer">
-              <div className={classes.linkIcon}>
-                <ExternalLinkIcon height={24} width={24} />
-              </div>
-            </a>
+            {bid.transactionHash && bid.transactionHash !== '0x0000000000000000000000000000000000000000000000000000000000000000' ? (
+              <a href={txLink} target="_blank" rel="noreferrer">
+                <div className={classes.linkIcon}>
+                  <ExternalLinkIcon height={24} width={24} />
+                </div>
+              </a>
+            ) : null}
           </div>
         </div>
       </div>
