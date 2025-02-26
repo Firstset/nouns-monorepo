@@ -8,7 +8,7 @@ const getBaseURL = (network: ChainId) => {
     case ChainId.Sepolia:
       return 'https://sepolia.etherscan.io/';
     default:
-      return 'https://berascan.com/';
+      return 'https://berascan.com/address/';
   }
 };
 
