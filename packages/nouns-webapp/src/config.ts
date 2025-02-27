@@ -96,8 +96,8 @@ const app: Record<SupportedChains, AppConfig> = {
   //   enableHistory: process.env.REACT_APP_ENABLE_HISTORY === 'true',
   // },
   80094: {
-    jsonRpcUri: 'https://lb.drpc.org/ogrpc?network=berachain&dkey=AjirufN3pUwtkrUzZP-gdxBoQ0DL7qYR771J0mSYF3e0',
-    wsRpcUri: 'wss://lb.drpc.org/ogws?network=berachain&dkey=AjirufN3pUwtkrUzZP-gdxBoQ0DL7qYR771J0mSYF3e0',
+    jsonRpcUri: 'https://lb.drpc.org/ogrpc?network=berachain&dkey=' + process.env.REACT_APP_DRPC_KEY,
+    wsRpcUri: 'wss://lb.drpc.org/ogws?network=berachain&dkey=' + process.env.REACT_APP_DRPC_KEY,
     subgraphApiUri:
       'https://api.goldsky.com/api/public/project_cm1p24aohtsfs01x64i0p4umb/subgraphs/bouns/0.1.1/gn',
     enableHistory: process.env.REACT_APP_ENABLE_HISTORY === 'true',

@@ -4,10 +4,10 @@ import { WALLET_TYPE } from '../WalletButton';
 import { useEthers } from '@usedapp/core';
 import clsx from 'clsx';
 import { InjectedConnector } from '@web3-react/injected-connector';
-import { WalletLinkConnector } from '@web3-react/walletlink-connector';
+// import { WalletLinkConnector } from '@web3-react/walletlink-connector';
 import { WalletConnectV2Connector } from '../../utils/walletconnectV2Connector';
-import { TrezorConnector } from '@web3-react/trezor-connector';
-import { FortmaticConnector } from '@web3-react/fortmatic-connector';
+// import { TrezorConnector } from '@web3-react/trezor-connector';
+// import { FortmaticConnector } from '@web3-react/fortmatic-connector';
 import config, { CHAIN_ID, WALLET_CONNECT_V2_PROJECT_ID } from '../../config';
 import classes from './WalletConnectModal.module.css';
 import { Trans } from '@lingui/macro';
@@ -66,7 +66,7 @@ const WalletConnectModal: React.FC<{ onDismiss: () => void }> = props => {
         onClick={handleMetaMaskConnect}
         walletType={WALLET_TYPE.metamask}
       />
-      <WalletButton
+      {/* <WalletButton
         onClick={() => {
           const fortmatic = new FortmaticConnector({
             apiKey: 'pk_live_60FAF077265B4CBA',
@@ -75,7 +75,7 @@ const WalletConnectModal: React.FC<{ onDismiss: () => void }> = props => {
           activate(fortmatic);
         }}
         walletType={WALLET_TYPE.fortmatic}
-      />
+      /> */}
       <WalletButton
         onClick={() => {
           const walletConnectV2 = new WalletConnectV2Connector({
@@ -91,7 +91,7 @@ const WalletConnectModal: React.FC<{ onDismiss: () => void }> = props => {
         }}
         walletType={WALLET_TYPE.walletconnect}
       />
-      <WalletButton
+      {/* <WalletButton
         onClick={() => {
           const walletlink = new WalletLinkConnector({
             appName: 'Nouns.WTF',
@@ -102,8 +102,8 @@ const WalletConnectModal: React.FC<{ onDismiss: () => void }> = props => {
           activate(walletlink);
         }}
         walletType={WALLET_TYPE.coinbaseWallet}
-      />
-      <WalletButton
+      /> */}
+      {/* <WalletButton
         onClick={() => {
           const injected = new InjectedConnector({
             supportedChainIds,
@@ -111,8 +111,8 @@ const WalletConnectModal: React.FC<{ onDismiss: () => void }> = props => {
           activate(injected);
         }}
         walletType={WALLET_TYPE.brave}
-      />
-      <WalletButton
+      /> */}
+      {/* <WalletButton
         onClick={() => {
           const trezor = new TrezorConnector({
             chainId: CHAIN_ID,
@@ -123,7 +123,7 @@ const WalletConnectModal: React.FC<{ onDismiss: () => void }> = props => {
           activate(trezor);
         }}
         walletType={WALLET_TYPE.trezor}
-      />
+      /> */}
       <div
         className={clsx(classes.clickable, classes.walletConnectData)}
         onClick={() => localStorage.removeItem('walletconnect')}
