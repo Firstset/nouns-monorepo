@@ -6087,10 +6087,10 @@
     lodash.pickby "^4.6.0"
     nanoid "3.1.22"
 
-"@usedapp/core@npm:usedapp-core":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/usedapp-core/-/usedapp-core-0.0.2.tgz#ea21e0d10c17767b2a0f854dd435d5b1f7320cd6"
-  integrity sha512-5BpwzMuc3mHVuUi3xPeG6c+H0KypcolweaYWANiBBuFPTPL8NlRbP9bWMktp5UMyu3nnPoEkg1GNYfyo/IwAyg==
+"@usedapp/core@npm:usedapp-core@0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/usedapp-core/-/usedapp-core-0.0.4.tgz#2f25231d100976f4157b161e88063835edde77dc"
+  integrity sha512-SCHldNRhb1qItjfmopd6u3Yp8XuS3p4Db9Sq3dbnJGq95shk04RAgTD+5wAP0Y3n6Ta2IRGnqIo5fIHVwWCjPA==
   dependencies:
     "@testing-library/react-hooks" "^8.0.1"
     "@types/react" "17.0.1"

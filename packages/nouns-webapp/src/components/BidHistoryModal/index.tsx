@@ -8,7 +8,6 @@ import { useAuctionBids } from '../../wrappers/onDisplayAuction';
 import { Bid } from '../../utils/types';
 import BidHistoryModalRow from '../BidHistoryModalRow';
 import { Trans } from '@lingui/macro';
-import { buildEtherscanTxLink } from '../../utils/etherscan';
 
 export const Backdrop: React.FC<{ onDismiss: () => void }> = props => {
   return <div className={classes.backdrop} onClick={props.onDismiss} />;
