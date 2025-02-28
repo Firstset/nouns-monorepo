@@ -6,6 +6,9 @@ import BigNumber from 'bignumber.js';
 import { isNounderNoun } from '../utils/nounderNoun';
 import { useAppSelector } from '../hooks';
 import { AuctionState } from '../state/slices/auction';
+import { useState, useEffect } from 'react';
+import { ethers } from 'ethers';
+import { NounsAuctionHouseFactory } from '@nouns/sdk';
 
 export enum AuctionHouseContractFunction {
   auction = 'auction',
@@ -37,19 +40,32 @@ export const useAuction = (auctionHouseProxyAddress: string) => {
   return auction as Auction;
 };
 
-export const useAuctionMinBidIncPercentage = () => {
-  const minBidIncrement = useContractCall({
-    abi,
-    address: config.addresses.nounsAuctionHouseProxy,
-    method: 'minBidIncrementPercentage',
-    args: [],
-  });
-
-  if (!minBidIncrement) {
-    return;
-  }
-
-  return new BigNumber(minBidIncrement[0]);
+export const useAuctionMinBidIncPercentage = (): BigNumber => {
+  // Create a consistent provider
+  const provider = new ethers.providers.JsonRpcProvider("https://rpc.berachain.com/");
+  
+  // Create a contract instance with the provider
+  const nounsAuctionHouseContract = NounsAuctionHouseFactory.connect(
+    config.addresses.nounsAuctionHouseProxy,
+    provider
+  );
+  
+  const [minBidIncPercentage, setMinBidIncPercentage] = useState<BigNumber>(new BigNumber(0));
+  
+  useEffect(() => {
+    const fetchMinBidIncPercentage = async () => {
+      try {
+        const percentage = await nounsAuctionHouseContract.minBidIncrementPercentage();
+        setMinBidIncPercentage(new BigNumber(percentage.toString()));
+      } catch (error) {
+        console.error('Error fetching min bid increment percentage:', error);
+      }
+    };
+    
+    fetchMinBidIncPercentage();
+  }, []);
+  
+  return minBidIncPercentage;
 };
 
 /**

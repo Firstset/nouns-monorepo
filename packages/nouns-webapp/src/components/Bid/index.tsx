@@ -22,9 +22,12 @@ const computeMinimumNextBid = (
   currentBid: BigNumber,
   minBidIncPercentage: BigNumber | undefined,
 ): BigNumber => {
-  if (!minBidIncPercentage) {
-    return new BigNumber(0);
+  // If no current bid or no percentage, return minimum bid of 0.01 ETH
+  if (currentBid.isZero() || !minBidIncPercentage) {
+    return new BigNumber(utils.parseEther('0.01').toString());
   }
+  
+  // Otherwise calculate based on current bid and percentage
   return currentBid
     .times(minBidIncPercentage.div(100).plus(1))
     .decimalPlaces(0, BigNumber.ROUND_UP);
