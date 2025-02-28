@@ -95,7 +95,7 @@ const AuctionTimer: React.FC<{
           >
             <div className={classes.timerSection}>
               <span>
-                {`${Math.floor(timerDuration.hours())}`}
+                {`${Math.floor(timerDuration.asHours())}`}
                 <span className={classes.small}>
                   <Trans>h</Trans>
                 </span>
