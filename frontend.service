@@ -1,0 +1,18 @@
+[Unit]
+Description=Nouns Frontend Service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/nouns-monorepo/packages/nouns-webapp
+ExecStart=/bin/bash -c "yarn start"
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+Environment=NODE_ENV=development
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
+
+[Install]
+WantedBy=multi-user.target 

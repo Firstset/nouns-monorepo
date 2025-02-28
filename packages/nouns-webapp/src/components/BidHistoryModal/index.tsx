@@ -40,7 +40,7 @@ const BidHistoryModalOverlay: React.FC<{
               <h2>
                 <Trans>Bids for</Trans>
               </h2>
-              <h1>Boun {auction && auction.nounId.toString()}</h1>
+              <h1>Boun {auction && auction.nounId ? auction.nounId.toString() : ''}</h1>
             </div>
           </div>
           <div className={classes.bidWrapper}>
@@ -48,7 +48,7 @@ const BidHistoryModalOverlay: React.FC<{
               <ul>
                 {bids?.map((bid: Bid, i: number) => {
                   return (
-                    <BidHistoryModalRow index={i} bid={bid} />
+                    <BidHistoryModalRow key={i} index={i} bid={bid} />
                   );
                 })}
               </ul>

@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { setOnDisplayAuctionNounId } from '../../state/slices/onDisplayAuction';
 import nounClasses from '../Noun/Noun.module.css';
 import Image from 'react-bootstrap/Image';
+import NounImage from '../NounImage';
 
 interface StandaloneNounProps {
   nounId: EthersBN;
@@ -98,30 +99,30 @@ export const StandaloneNounCircular: React.FC<StandaloneCircularNounProps> = (
   );
 };
 
-export const StandaloneNounRoundedCorners: React.FC<StandaloneNounProps> = (
-  props: StandaloneNounProps,
-) => {
+export const StandaloneNounRoundedCorners: React.FC<{
+  nounId: EthersBN;
+}> = props => {
   const { nounId } = props;
   const seed = useNounSeed(nounId);
-  const noun = seed && getNoun(nounId, seed);
-
-  const dispatch = useDispatch();
-  const onClickHandler = () => {
-    dispatch(setOnDisplayAuctionNounId(nounId.toNumber()));
-  };
-
+  
+  // Ensure head value is within valid range (0-199 or whatever your max is)
+  const processedSeed = seed ? {
+    ...seed,
+    head: seed.head > 199 ? seed.head % 200 : seed.head
+  } : undefined;
+  
+  const noun = processedSeed && getNoun(nounId, processedSeed);
+  
   return (
-    <Link
-      to={'/boun/' + nounId.toString()}
-      className={classes.clickableNoun}
-      onClick={onClickHandler}
-    >
-      <Noun
-        imgPath={noun ? noun.image : ''}
-        alt={noun ? noun.description : 'Boun'}
-        className={nounClasses.rounded}
-      />
-    </Link>
+    <div className={classes.standaloneNounWrapper}>
+      <div className={classes.standaloneNounRoundedCorners}>
+        <Noun 
+          imgPath={noun ? noun.image : ''} 
+          alt={noun ? noun.description : 'Boun'} 
+          className={nounClasses.rounded}
+        />
+      </div>
+    </div>
   );
 };
 
