@@ -141,10 +141,16 @@ const fetchSeedDirectly = async (nounId: EthersBN) => {
 
 export const useNounsTokenContract = () => {
   const { library } = useEthers();
+  
+  // Create a provider that doesn't require signing
+  const provider = new ethers.providers.JsonRpcProvider("https://rpc.berachain.com/");
+  
+  // Use the provider directly for read-only operations
   const nounsTokenContract = NounsTokenFactory.connect(
     config.addresses.nounsToken,
-    library?.getSigner() || new ethers.providers.JsonRpcProvider("https://rpc.berachain.com/")
+    provider
   );
+  
   return { nounsTokenContract };
 };
 
@@ -155,6 +161,7 @@ export const useNounSeed = (nounId: EthersBN): INounSeed => {
   // Use a ref to track if we've already fetched this seed
   const hasFetchedRef = useRef<boolean>(false);
   
+  // Store the seed in state
   const [seed, setSeed] = useState<INounSeed>({
     background: 0,
     body: 0,
@@ -163,10 +170,11 @@ export const useNounSeed = (nounId: EthersBN): INounSeed => {
     glasses: 0
   });
   
+  // Get the contract
   const { nounsTokenContract } = useNounsTokenContract();
 
   useEffect(() => {
-    if (!nounsTokenContract || !nounId) {
+    if (!nounId) {
       return;
     }
     
@@ -180,9 +188,7 @@ export const useNounSeed = (nounId: EthersBN): INounSeed => {
     
     const fetchSeed = async () => {
       try {
-        // For debugging
-        console.log(`Fetching seed for noun ${nounId.toString()}`);
-        
+        // Always try to fetch from contract first
         const seedData = await nounsTokenContract.seeds(nounId);
         console.log('Raw seed data:', seedData);
         
@@ -193,24 +199,11 @@ export const useNounSeed = (nounId: EthersBN): INounSeed => {
           return 0;
         };
         
-        // Define valid ranges for each trait based on available assets
-        const VALID_RANGES = {
-          background: 2,   // 0-1
-          body: 30,        // 0-29
-          accessory: 140,  // 0-139
-          head: 200,       // 0-199
-          glasses: 20      // 0-19
-        };
-        
         let background = 0;
         let body = 0;
         let accessory = 0;
         let head = 0;
         let glasses = 0;
-        
-        // Based on the console output, the array indices are different than expected
-        // The actual mapping appears to be:
-        // [0] = body, [1] = accessory, [2] = head, [3] = glasses, background is missing
         
         // Try accessing as object with properties first
         if (seedData && typeof seedData === 'object' && 'body' in seedData) {
@@ -234,13 +227,6 @@ export const useNounSeed = (nounId: EthersBN): INounSeed => {
           background = 0;
         }
         
-        // Ensure all values are within valid ranges
-        background = background % VALID_RANGES.background;
-        body = body % VALID_RANGES.body;
-        accessory = accessory % VALID_RANGES.accessory;
-        head = head % VALID_RANGES.head;
-        glasses = glasses % VALID_RANGES.glasses;
-        
         console.log('Processed seed:', { background, body, accessory, head, glasses });
         
         // Create the modified seed
@@ -256,20 +242,15 @@ export const useNounSeed = (nounId: EthersBN): INounSeed => {
         hasFetchedRef.current = true;
       } catch (error) {
         console.error(`Error fetching seed for noun ${nounId}: `, error);
-        // Set a fallback seed on error
-        setSeed({
-          background: Math.floor(Math.random() * 2),
-          body: Math.floor(Math.random() * 30),
-          accessory: Math.floor(Math.random() * 140),
-          head: Math.floor(Math.random() * 199), // Keep within valid range
-          glasses: Math.floor(Math.random() * 20)
-        });
+        
+        // On error, just keep the default seed values
+        // This will show a basic Noun with all traits set to 0
         hasFetchedRef.current = true;
       }
     };
 
     fetchSeed();
-  }, [nounId?.toString(), nounsTokenContract]); // Use nounId.toString() to prevent re-renders
+  }, [nounId?.toString(), nounsTokenContract]);
 
   return seed;
 };
